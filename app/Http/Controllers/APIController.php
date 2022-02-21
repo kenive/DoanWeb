@@ -262,27 +262,8 @@ class APIController extends Controller
                 $product->stock-= $invoicedetail->quantily;
                 $product->update();
                 $c=Cart::where('accountId','=',$request->accountid)->delete();
-
-                    /* if($product->save()){
-                        $c=Cart::where('accountId','=',$request->accountid)->delete();
-                        if (empty($c)) {
-                            return json_encode([
-                                'sucsses' => false
-                            ]);
-                        } else {
-                            return json_encode([
-                                'sucsses' => true
-                            ]);
-                        }
-
-                    
-                 } */
             }  
-        
-        
-        /* else{
-            return json_encode(['sucsses' => false]);
-        } */
+
 
     }
 
@@ -361,12 +342,7 @@ class APIController extends Controller
         return response(['lsthd'=>$hd]);
     }
     public function getd($id){
-        //$prd=DB::select('select products.id, products.stock,invoice_details.quantily from products,invoice_details,invoices where invoice_details.productId = products.id and invoice_details.invoiceId=invoices.id and invoices.id='.$id);
-        //$prd=DB::select("select * from products where id=".$id);
-        /* foreach($prd as $c){
-            return response(['lst'=>$c->id]);
-        } */
-        //$prs=Product::where($prd->id);
+     
         $prd=invoicedetail::where('invoiceId',$id)->get();
         foreach($prd as $c){
             $p=Product::where('id',$c->productId)->first();
@@ -376,6 +352,20 @@ class APIController extends Controller
         }
         //foreach
         //return response(['lst'=>$prd]);
+    }
+    public function mualai($id){
+        $hd=invoice::find($id);
+        $detailhd=invoicedetail::where('invoiceId',$id)->get();
+        foreach($detailhd as $c){
+            $cartt=new Cart();
+                $cartt->accountId=$hd->accountId;
+                $cartt->productId=$c->productId;
+                $cartt->quantity=$c->quantily;
+                $cartt->save();
+            
+           
+        }
+        response(['sucsses'=>true]);
     }
 
 }

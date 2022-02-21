@@ -45,8 +45,8 @@ class LoginController extends Controller
     public function store(Request $request)
     {
         $messages = [
-            'email.required' => 'Vui lòng nhập tên đăng nhập',
-            'password.required' => 'Vui lòng nhập mật khẩu'
+            'email.required' => 'Vui lòng nhập email!',
+            'password.required' => 'Vui lòng nhập mật khẩu!'
         ];
         $this->validate($request,[
             'email'=>'required:filter',
@@ -65,7 +65,7 @@ class LoginController extends Controller
         }
     
     }
-    session()->flash('error','Tên đăng nhập hoặc mật khẩu không đúng');
+    session()->flash('error','Email hoặc mật khẩu không đúng');
     return redirect()->back();
     
 }

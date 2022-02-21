@@ -40,3 +40,4 @@ Route::put('invoice/updatestatus/{id}',[APIController::class,'updateStatus']);
 Route::get('getinvoicedetail/{id}',[APIController::class,'getInvoicedetail']);
 Route::get('gethd/{id}',[APIController::class,'getHoaDon']);
 Route::get('prod/{id}',[APIController::class,'getd']);
+Route::get('mualai/{id}',[APIController::class,'mualai']);
